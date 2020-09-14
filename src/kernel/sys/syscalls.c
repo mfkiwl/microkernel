@@ -130,11 +130,6 @@ PUBLIC void do_kcall2(void)
 				);
 				break;
 
-
-			case NR_cluster_get_num:
-				ret = kernel_cluster_get_num();
-				break;
-
 #if __TARGET_HAS_SYNC
 			case NR_sync_create:
 				ret = kernel_sync_create(
@@ -424,6 +419,11 @@ PUBLIC int do_kcall(
 		case NR_node_get_num:
 			ret = kernel_node_get_num();
 			break;
+
+		case NR_cluster_get_num:
+			ret = kernel_cluster_get_num();
+			break;
+
 #endif
 
 		case NR_alarm:
