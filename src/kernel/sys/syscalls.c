@@ -130,9 +130,6 @@ PUBLIC void do_kcall2(void)
 				);
 				break;
 
-			case NR_node_get_num:
-				ret = kernel_node_get_num();
-				break;
 
 			case NR_cluster_get_num:
 				ret = kernel_cluster_get_num();
@@ -424,6 +421,9 @@ PUBLIC int do_kcall(
 			ret = kernel_sleep();
 			break;
 
+		case NR_node_get_num:
+			ret = kernel_node_get_num();
+			break;
 #endif
 
 		case NR_alarm:
