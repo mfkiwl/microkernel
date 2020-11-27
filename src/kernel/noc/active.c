@@ -307,26 +307,32 @@ PRIVATE int active_search(
 
 		spinlock_lock(&active->lock);
 
+			/* Active must be configured. */
 			if (!resource_is_used(&active->resource))
 			{
 				spinlock_unlock(&active->lock);
 				continue;
 			}
 
+			/* Looking for input but it is output. */
 			if (ACTIVE_SEARCH_IS_INPUT(active, type))
 			{
 				spinlock_unlock(&active->lock);
 				continue;
 			}
 
+			/* Looking for output but it is input. */
 			else if (ACTIVE_SEARCH_IS_OUTPUT(active, type))
 			{
 				spinlock_unlock(&active->lock);
 				continue;
 			}
 
-			/* Not the node we are looking for. */
-			if ((active->local != local) || (active->remote != remote))
+			/**
+			 * Local must be the same on both types.
+			 * Remote must be the same on outputs.
+			 */
+			if (active->local != local || (remote != -1 && active->remote != remote))
 			{
 				spinlock_unlock(&active->lock);
 				continue;
